@@ -39,8 +39,49 @@ describe('Calculator CLI', () => {
     expect(output).toContain('Error: Division by zero is not allowed.');
   });
 
+  // Modulo operation
+  test('modulo: 10 % 3 = 1', () => {
+    expect(runCalc('mod', 10, 3)).toBe('Result: 1');
+  });
+
+  test('modulo by zero', () => {
+    const output = runCalcError('mod', 10, 0);
+    expect(output).toContain('Error: Modulo by zero is not allowed.');
+  });
+
+  // Power operation
+  test('power: 2 ^ 3 = 8', () => {
+    expect(runCalc('pow', 2, 3)).toBe('Result: 8');
+  });
+
+  test('power: 5 ^ 0 = 1', () => {
+    expect(runCalc('pow', 5, 0)).toBe('Result: 1');
+  });
+
+  test('power: 2 ^ -2 = 0.25', () => {
+    expect(runCalc('pow', 2, -2)).toBe('Result: 0.25');
+  });
+
+  // Square root operation
+  test('square root: sqrt 9 = 3', () => {
+    expect(runCalc('sqrt', 9)).toBe('Result: 3');
+  });
+
+  test('square root: sqrt 0 = 0', () => {
+    expect(runCalc('sqrt', 0)).toBe('Result: 0');
+  });
+
+  test('square root: sqrt 2 = 1.4142135623730951', () => {
+    expect(runCalc('sqrt', 2)).toBe('Result: 1.4142135623730951');
+  });
+
+  test('square root of negative number', () => {
+    const output = runCalcError('sqrt', -4);
+    expect(output).toContain('Error: Square root of negative number is not allowed.');
+  });
+
   test('invalid operation', () => {
-    const output = runCalcError('mod', 7, 3);
+    const output = runCalcError('foo', 7, 3);
     expect(output).toContain('Usage: node calculator.js <operation> <num1> <num2>');
   });
 
